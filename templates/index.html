@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CodeLintHub</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>CodeLintHub</h1>
+    <form id="lintForm">
+      <textarea name="code" placeholder="Paste Python code here..."></textarea>
+      <input type="file" name="files" multiple>
+      <button type="submit">Run Linters</button>
+    </form>
+
+    <div id="loading" style="display:none;">Linting in progress...</div>
+
+    <div id="results" class="tabs" style="display:none;">
+      <ul class="tab-links">
+        <li data-tool="pylint" class="active">Pylint</li>
+        <li data-tool="flake8">Flake8</li>
+        <li data-tool="bandit">Bandit</li>
+      </ul>
+      <div class="tab-content"></div>
+      <button id="downloadReport">Download Report</button>
+    </div>
+  </div>
+
+  <script src="/static/main.js"></script>
+</body>
+</html>
