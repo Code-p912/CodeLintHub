@@ -1,0 +1,4 @@
+Flask==2.3.3
+pylint==3.2.6
+flake8==7.1.1
+bandit==1.7.9
