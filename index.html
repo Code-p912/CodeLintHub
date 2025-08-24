@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CodeLintHub 2.0 — Multi-language Browser Linter</title>
+  <meta name="description" content="Run linters in your browser or server — Python (Pyodide), Java, C/C++, MicroPython. Privacy-first, open-source (MIT)." />
+  <link rel="icon" href="static/assets/brand.svg" />
+  <link rel="stylesheet" href="static/style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-icon" aria-hidden="true">&lt;&gt;</div>
+      <img src="static/assets/brand.svg" alt="CodeLintHub" />
+      <h1>CodeLintHub 2.0</h1>
+      <span class="badge badge-mit" title="Open Source — MIT">MIT</span>
+    </div>
+    <nav class="nav-actions">
+      <label class="lang-select">
+        <select id="langSelect" aria-label="Select language">
+          <option value="auto">Auto-detect</option>
+          <option value="python">Python</option>
+          <option value="micropython">MicroPython</option>
+          <option value="java">Java</option>
+          <option value="cpp">C/C++</option>
+        </select>
+      </label>
+      <a class="link" href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+      <button id="downloadReportBtn" class="btn btn-primary" disabled>Download Report</button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="card card-editor">
+      <h2>Paste Code or Upload Files</h2>
+      <div class="editor-toolbar">
+        <label class="file-uploader">
+          <input type="file" id="fileInput" multiple />
+          <span>Upload Files</span>
+        </label>
+        <button id="clearFilesBtn" class="btn btn-ghost">Clear Files</button>
+        <button id="runAllBtn" class="btn btn-success" disabled>Run Linters</button>
+      </div>
+
+      <div class="files-list" id="filesList" aria-live="polite"></div>
+
+      <div class="editor" id="editor" aria-label="Code editor" contenteditable="true" spellcheck="false"></div>
+      <div class="editor-hint">Tip: Paste code above to lint a quick snippet. Or upload multiple files individually and remove any one you don’t want.</div>
+    </section>
+
+    <section class="card card-status">
+      <h2>Runtime Status</h2>
+      <div id="runtimeStatus" class="status-line">Boot not started</div>
+      <div class="progress">
+        <div id="bootProgress" class="progress-bar" style="width:0%"></div>
+      </div>
+      <div id="toolSpinners" class="tool-spinners">
+        <div class="tool" data-tool="pylint"><span>Pylint</span><div class="spinner"></div></div>
+        <div class="tool" data-tool="flake8"><span>Flake8</span><div class="spinner"></div></div>
+        <div class="tool" data-tool="bandit"><span>Bandit</span><div class="spinner"></div></div>
+        <div class="tool" data-tool="server"><span>Server Linters</span><div class="spinner"></div></div>
+      </div>
+      <div class="error-box hidden" id="errorBox">
+        <div class="error-title">Something went wrong</div>
+        <pre id="errorText"></pre>
+        <div class="error-actions">
+          <button id="copyErrorBtn" class="btn btn-warning">Copy details</button>
+          <button id="retryBtn" class="btn btn-primary">Retry</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card card-results">
+      <div class="tabs">
+        <button class="tab active" data-tab="pylint">Pylint <span class="badge" id="badgePylint">0</span></button>
+        <button class="tab" data-tab="flake8">Flake8 <span class="badge" id="badgeFlake8">0</span></button>
+        <button class="tab" data-tab="bandit">Bandit <span class="badge" id="badgeBandit">0</span></button>
+        <button class="tab" data-tab="server">Server <span class="badge" id="badgeServer">0</span></button>
+      </div>
+      <div class="tab-panels">
+        <div id="panelPylint" class="tab-panel active"><div class="empty">No results yet.</div></div>
+        <div id="panelFlake8" class="tab-panel"><div class="empty">No results yet.</div></div>
+        <div id="panelBandit" class="tab-panel"><div class="empty">No results yet.</div></div>
+        <div id="panelServer" class="tab-panel"><div class="empty">No server-run results yet (Java/C++ linting requires server mode).</div></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p><strong>Open Source — MIT License.</strong> Privacy-first: Python linting runs in your browser with Pyodide. Java/C++ linting is supported via an optional server API (included).</p>
+  </footer>
+
+  <script src="static/app.js"></script>
+</body>
+</html>
